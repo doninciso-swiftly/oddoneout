@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Odd One Out - Multiplayer Party Game</title>
+  <meta name="description" content="A fun multiplayer party game where you find the impostor among your friends!">
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0d0d12;
+      --card: #16161f;
+      --primary: #ff6b35;
+      --secondary: #ffd93d;
+      --success: #26de81;
+      --info: #4facfe;
+      --text: #fff;
+      --muted: #9ca3af;
+      --border: #2d2d3a;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+    
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+    
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 60px 20px;
+      background: linear-gradient(135deg, rgba(255,107,53,0.1) 0%, rgba(255,217,61,0.1) 100%);
+      border-radius: 24px;
+      margin-bottom: 40px;
+      border: 1px solid var(--border);
+    }
+    
+    .hero-icon {
+      font-size: 5rem;
+      margin-bottom: 20px;
+      animation: bounce 2s infinite;
+    }
+    
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    
+    .hero h1 {
+      font-family: 'Bangers', cursive;
+      font-size: 3.5rem;
+      color: var(--primary);
+      text-shadow: 4px 4px 0 var(--secondary);
+      margin-bottom: 16px;
+      letter-spacing: 2px;
+    }
+    
+    .hero p {
+      font-size: 1.3rem;
+      color: var(--muted);
+      max-width: 500px;
+      margin: 0 auto 30px;
+    }
+    
+    .play-btn {
+      display: inline-block;
+      padding: 18px 48px;
+      font-size: 1.3rem;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      text-decoration: none;
+      color: #fff;
+      background: linear-gradient(135deg, var(--primary), #ff8f5a);
+      border-radius: 16px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(255,107,53,0.4);
+    }
+    
+    .play-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 30px rgba(255,107,53,0.5);
+    }
+    
+    /* Features Section */
+    .section-title {
+      font-family: 'Bangers', cursive;
+      font-size: 2rem;
+      color: var(--secondary);
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-bottom: 50px;
+    }
+    
+    .feature-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--primary);
+    }
+    
+    .feature-icon {
+      font-size: 2.5rem;
+      margin-bottom: 12px;
+    }
+    
+    .feature-card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+    
+    .feature-card p {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+    
+    /* How to Play Section */
+    .how-to-play {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 40px;
+      margin-bottom: 50px;
+    }
+    
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    
+    .step {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+    }
+    
+    .step-number {
+      font-family: 'Bangers', cursive;
+      font-size: 2rem;
+      color: var(--primary);
+      background: rgba(255,107,53,0.15);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    
+    .step-content h4 {
+      font-size: 1.1rem;
+      margin-bottom: 4px;
+      color: var(--secondary);
+    }
+    
+    .step-content p {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+    
+    /* Categories Section */
+    .categories {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 50px;
+    }
+    
+    .category-tag {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 10px 20px;
+      border-radius: 30px;
+      font-size: 0.95rem;
+    }
+    
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      border-top: 1px solid var(--border);
+      margin-top: 40px;
+    }
+    
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    
+    .footer-links a {
+      color: var(--info);
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+    
+    .footer-links a:hover {
+      text-decoration: underline;
+    }
+    
+    .developer {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 10px;
+    }
+    
+    .copyright {
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+    
+    /* Responsive */
+    @media (max-width: 600px) {
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+      
+      .hero-icon {
+        font-size: 4rem;
+      }
+      
+      .how-to-play {
+        padding: 24px;
+      }
+      
+      .step {
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-icon">🎭</div>
+      <h1>ODD ONE OUT</h1>
+      <p>A fun multiplayer party game where you find the impostor among your friends!</p>
+      <a href="https://script.google.com/a/macros/umindanao.edu.ph/s/AKfycbykZaRtDZ2zDv9xHFeI6PY0cKdrCvmh_xW5HKvLWJ0twj8K7tszX4HREj38T-5vNCg6/exec" class="play-btn">▶️ Play Now</a>
+    </section>
+    
+    <!-- Features Section -->
+    <h2 class="section-title">✨ Features</h2>
+    <div class="features">
+      <div class="feature-card">
+        <div class="feature-icon">👥</div>
+        <h3>3-12 Players</h3>
+        <p>Perfect for small to large groups</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">💬</div>
+        <h3>In-Game Chat</h3>
+        <p>Discuss and strategize with friends</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🏆</div>
+        <h3>Leaderboard</h3>
+        <p>Track your all-time stats</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📱</div>
+        <h3>Mobile Friendly</h3>
+        <p>Play on any device</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔊</div>
+        <h3>Sound Effects</h3>
+        <p>Fun audio feedback</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎯</div>
+        <h3>Impostor Guess</h3>
+        <p>Caught? Guess the word to win!</p>
+      </div>
+    </div>
+    
+    <!-- How to Play Section -->
+    <section class="how-to-play">
+      <h2 class="section-title">🎮 How to Play</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h4>Create or Join</h4>
+            <p>One player creates a room and shares the 6-letter code with friends</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h4>Get Your Role</h4>
+            <p>Everyone gets a secret word... except the impostor who gets a related hint!</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h4>Give Clues</h4>
+            <p>Everyone writes ONE word clue about the secret word</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <h4>Discuss & Vote</h4>
+            <p>Talk with friends, find suspicious clues, and vote for the impostor</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">5</div>
+          <div class="step-content">
+            <h4>Reveal!</h4>
+            <p>See if you caught them! If caught, the impostor can guess the word to steal the win!</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Categories Section -->
+    <h2 class="section-title">📚 8 Categories</h2>
+    <div class="categories">
+      <span class="category-tag">🍕 Foods</span>
+      <span class="category-tag">🐾 Animals</span>
+      <span class="category-tag">📍 Places</span>
+      <span class="category-tag">🎬 Movies</span>
+      <span class="category-tag">💼 Jobs</span>
+      <span class="category-tag">⚽ Sports</span>
+      <span class="category-tag">🇵🇭 Filipino</span>
+      <span class="category-tag">💻 Tech</span>
+    </div>
+    
+    <!-- Footer -->
+    <footer>
+      <div class="footer-links">
+        <a href="privacy-policy.html">📜 Privacy Policy</a>
+        <a href="terms-of-service.html">📋 Terms of Service</a>
+      </div>
+      <p class="developer">Created by <strong>Don Inciso</strong> • e.inciso.471453@umindanao.edu.ph</p>
+      <p class="copyright">© 2025 Odd One Out Game. All rights reserved.</p>
+    </footer>
+  </div>
+</body>
+</html>
